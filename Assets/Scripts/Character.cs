@@ -60,6 +60,10 @@ public class Character : MonoBehaviour, ICharacterActions
     {
         Debug.Log("Attacking");
     }
+    public void OnPause(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Pausing");
+    }
 
 
 }
