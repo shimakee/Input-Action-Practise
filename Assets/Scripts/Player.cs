@@ -2,6 +2,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.InputSystem.Users;
 
 
 //Using input actions by attaching to Player input invoking uity events
@@ -16,13 +17,13 @@ public class Player : MonoBehaviour
     Vector2 _direction;
     float speed = 1;
 
-    InputActionMap gameActionMap;
-    InputActionMap menuActionMap;
+    //InputActionMap gameActionMap;
+    //InputActionMap menuActionMap;
 
     private void Awake()
     {
-        gameActionMap = playerInput.actions.FindActionMap("Character");
-        menuActionMap = playerInput.actions.FindActionMap("Menu");
+        //gameActionMap = playerInput.actions.FindActionMap("Character");
+        //menuActionMap = playerInput.actions.FindActionMap("Menu");
 
         if (UiParentInstance == null)
             UiParentInstance = Instantiate(UiParent);
@@ -30,8 +31,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        playerInput.currentActionMap = gameActionMap;
-        menuActionMap.Disable();
+        playerInput.SwitchCurrentActionMap("Character");
+        //menuActionMap.Disable();
 
         if (UiMenu != null)
         {
@@ -76,15 +77,26 @@ public class Player : MonoBehaviour
             if(UiInstance != null)
             {
                 UiInstance.SetActive(!UiInstance.activeSelf);
+
+                
+
                 if (UiInstance.activeSelf)
                 {
-                    menuActionMap.Enable();
-                    gameActionMap.Disable();
+                    //easier way
+                    playerInput.SwitchCurrentActionMap("Menu");
+
+                    ////Manual Method.
+                    //menuActionMap.Enable();
+                    //gameActionMap.Disable();
                 }
                 else
                 {
-                    menuActionMap.Disable();
-                    gameActionMap.Enable();
+                    //easier way
+                    playerInput.SwitchCurrentActionMap("Character");
+
+                    ////Manual Method.
+                    //menuActionMap.Disable();
+                    //gameActionMap.Enable();
                 }
             }
         }
